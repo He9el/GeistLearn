@@ -13,9 +13,10 @@ func main() {
 	var conn net.Conn
 	var err error
 	conn, err = startListener()
-	if err == nil {
-		handleConnection(conn)
+	if err != nil {
+
 	}
+	handleConnection(conn)
 }
 
 func startListener() (net.Conn, error) {
