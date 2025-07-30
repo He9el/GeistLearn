@@ -6,6 +6,9 @@ import (
 	"net"
 )
 
+// this is a demo 1to1 server, it will accept one conn and handle it,
+// if you want to handle multi conn, you can use a loop to accept conn,
+// and use a map to store conn, key is conn id, value is conn.
 func main() {
 	var conn net.Conn
 	var err error
