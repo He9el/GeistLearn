@@ -14,7 +14,7 @@ func main() {
 	var err error
 	conn, err = startListener()
 	if err != nil {
-
+		fmt.Printf("start listener failed, err: %v", err)
 	}
 	handleConnection(conn)
 }
