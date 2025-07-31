@@ -10,16 +10,12 @@ import (
 // if you want to handle multi conn, you can use a loop to accept conn,
 // and use a map to store conn, key is conn id, value is conn.
 func main() {
-	var conn net.Conn
-	var err error
-	conn, err = startListener()
-	if err != nil {
-		fmt.Printf("start listener failed, err: %v", err)
-	}
-	handleConnection(conn)
+
+	startListener()
+
 }
 
-func startListener() (net.Conn, error) {
+func startListener() {
 	var err error
 	var listener net.Listener
 	listener, err = net.Listen("tcp", "127.0.0.1:8080")
@@ -28,12 +24,15 @@ func startListener() (net.Conn, error) {
 	}
 	defer listener.Close()
 
-	var conn net.Conn
-	conn, err = listener.Accept()
-	if err == nil {
-		fmt.Printf("accept conn success, conn: %v", conn)
+	for {
+		var conn net.Conn
+		conn, err = listener.Accept()
+		if err == nil {
+			fmt.Printf("accept conn success, conn: %v", conn)
+		}
+		go handleConnection(conn)
 	}
-	return conn, nil
+
 }
 
 func handleConnection(conn net.Conn) {
